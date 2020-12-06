@@ -12,12 +12,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 // your code goes here
 app.get('/api/student', (req, res) => {
-    res.send(JSON.stringify(InitialData));
+    res.send(InitialData);
 });
 
 app.get('/api/student/:stuId', (req, res) => {
     if(InitialData[req.params.stuId - 1]) {
-        res.send(JSON.stringify(InitialData[req.params.stuId - 1]));
+        res.send(InitialData[req.params.stuId - 1]);
     } else {
         res.sendStatus(404);
     }
@@ -32,7 +32,7 @@ app.post('/api/student', (req, res) => {
     } 
     if(newStu.name && newStu.currentClass && newStu.division) {
         const newId = InitialData.push(newStu);
-        res.send(JSON.stringify({'id':newId}));
+        res.send({'id':newId});
     } else {
         res.sendStatus(400);
     }
@@ -51,7 +51,7 @@ app.put('/api/student/:stuId', (req, res) => {
             InitialData[stuId - 1].name = updateStu.name;
             InitialData[stuId - 1].currentClass = updateStu.currentClass;
             InitialData[stuId - 1].division = updateStu.division;
-            res.send(JSON.stringify({name: updateStu.name}));
+            res.send({name: updateStu.name});
         } else {
             res.sendStatus(400);
         }
