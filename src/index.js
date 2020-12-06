@@ -25,7 +25,7 @@ app.get('/api/student/:stuId', (req, res) => {
 
 app.post('/api/student', (req, res) => {
     const newStu = {
-        id: InitialData.length,
+        id: InitialData.length + 1,
         name: req.body.name,
         currentClass: Number(req.body.currentClass),
         division: req.body.division
@@ -46,15 +46,10 @@ app.put('/api/student/:stuId', (req, res) => {
             currentClass: Number(req.body.currentClass),
             division: req.body.division
         }
-        if(updateStu.name && updateStu.currentClass && updateStu.division) {
-            InitialData[stuId - 1].id = stuId;
-            InitialData[stuId - 1].name = updateStu.name;
-            InitialData[stuId - 1].currentClass = updateStu.currentClass;
-            InitialData[stuId - 1].division = updateStu.division;
-            res.send({name: updateStu.name});
-        } else {
-            res.sendStatus(400);
-        }
+        InitialData[stuId - 1].name = updateStu.name ? updateStu.name : InitialData[stuId - 1].name;
+        InitialData[stuId - 1].currentClass = updateStu.currentClass ? updateStu.currentClass : InitialData[stuId - 1].currentClass;
+        InitialData[stuId - 1].division = updateStu.division ? updateStu.division : InitialData[stuId - 1].division;
+        res.send({name: InitialData[stuId - 1].name});
     } else {
         res.sendStatus(400);
     }
